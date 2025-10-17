@@ -1,0 +1,6 @@
+@BEFinal_HostAddress = http://localhost:5025
+
+GET {{BEFinal_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
