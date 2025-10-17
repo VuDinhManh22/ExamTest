@@ -20,17 +20,25 @@ Thống kê Đề Thi
   - Số lượng đề theo `level`: EASY / MEDIUM / HARD.
   - Số lượng đề theo `subject`.
 - Tỉ lệ phần trăm đề HARD.
+
 Cài đặt & Chạy dự án
+
 Bước 1: Clone source code
+
 git clone 
+
 cd Thư mục
+
 Bước 2: Cấu hình Database:
 "ConnectionStrings": {
 "DefaultConnection": "Server=.\\SQLEXPRESS;Database=ExamUserDb;TrustServerCertificate=Yes;Trusted_Connection=True;MultipleActiveResultSets=true"
  },
+
 Bước 3: Cài đặt dependencies
 dotnet restore
+
 Bước 4: Tạo Migration
 dotnet ef database update
+
 Bước 5: Chạy ứng dụng
 dotnet run
