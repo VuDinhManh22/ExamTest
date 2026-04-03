@@ -127,5 +127,3 @@ dotnet run
   ```
 
 ---
-
-💡 *Nếu thấy hữu ích, hãy ⭐ repo để ủng hộ nhé!*
