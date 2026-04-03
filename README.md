@@ -1,179 +1,71 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <title>Exam Management System</title>
-    <styles> 
-       body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: #0f172a;
-    color: #e2e8f0;
-}
+# 🚀 Hệ Thống Quản Lý Đề Thi Trực Tuyến
 
-.container {
-    max-width: 1000px;
-    margin: auto;
-    padding: 20px;
-}
+![.NET](https://img.shields.io/badge/.NET-9.0-blue)
+![ASP.NET Core](https://img.shields.io/badge/ASP.NET-Core-green)
+![JWT](https://img.shields.io/badge/Auth-JWT-orange)
+![Swagger](https://img.shields.io/badge/API-Swagger-brightgreen)
+![EF Core](https://img.shields.io/badge/ORM-EntityFramework-purple)
 
-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
+---
 
-h1 {
-    color: #38bdf8;
-}
+## 📌 Giới thiệu
 
-.badges span {
-    display: inline-block;
-    background: #1e293b;
-    color: #38bdf8;
-    padding: 5px 10px;
-    margin: 5px;
-    border-radius: 20px;
-    font-size: 14px;
-}
+Hệ thống Quản Lý Đề Thi Trực Tuyến cho phép người dùng:
 
-.card {
-    background: #1e293b;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-}
+- Tạo, chỉnh sửa và quản lý đề thi 📚  
+- Thống kê dữ liệu 📊  
+- Phân quyền người dùng 🔐  
 
-h2 {
-    color: #22c55e;
-}
+👉 Công nghệ sử dụng:
 
-ul {
-    padding-left: 20px;
-}
+- ASP.NET Core Web API  
+- JWT Authentication  
+- Swagger  
+- Entity Framework Core  
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
+---
 
-table, th, td {
-    border: 1px solid #334155;
-}
+## 🔑 Chức năng chính
 
-th {
-    background: #334155;
-}
+### 👤 Xác thực & Phân quyền
+- ✅ Đăng ký / Đăng nhập  
+- 🔐 Cấp token JWT  
+- 👑 Phân quyền Admin / User  
 
-td, th {
-    padding: 10px;
-    text-align: left;
-}
+---
 
-pre {
-    background: #020617;
-    padding: 15px;
-    border-radius: 8px;
-    color: #22c55e;
-}
+### 📝 Quản lý đề thi
+- ➕ Tạo đề thi mới  
+- ✏️ Cập nhật đề thi  
+- ❌ Xóa đề thi  
 
-footer {
-    text-align: center;
-    margin-top: 20px;
-    color: #94a3b8;
-}  
-    </styles>
-</head>
-<body>
+#### 📡 API Endpoints
 
-<div class="container">
+| Method | Endpoint | Mô tả |
+|-------|---------|------|
+| POST | `/exams` | Tạo đề thi |
+| GET | `/exams` | Lấy danh sách (lọc theo subject, level) |
+| PUT | `/exams/{id}` | Cập nhật đề |
+| DELETE | `/exams/{id}` | Xóa đề |
 
-    <header>
-        <h1>🚀 Hệ Thống Quản Lý Đề Thi</h1>
-        <div class="badges">
-            <span>.NET 9</span>
-            <span>ASP.NET Core</span>
-            <span>JWT</span>
-            <span>Swagger</span>
-            <span>EF Core</span>
-        </div>
-    </header>
+---
 
-    <section class="card">
-        <h2>📌 Giới thiệu</h2>
-        <p>
-            Hệ thống quản lý đề thi trực tuyến cho phép người dùng tạo, chỉnh sửa,
-            thống kê và quản lý đề thi theo môn học và độ khó.
-        </p>
-    </section>
+### 🕓 Lịch sử chỉnh sửa
+- 🔄 Tự động lưu khi thay đổi `level` hoặc `examDate`  
+- 📂 Lưu vào bảng `ExamHistory`  
 
-    <section class="card">
-        <h2>🔑 Xác thực & Phân quyền</h2>
-        <ul>
-            <li>Đăng ký / Đăng nhập</li>
-            <li>JWT Authentication</li>
-            <li>Phân quyền Admin / User</li>
-        </ul>
-    </section>
+| Endpoint | Mô tả |
+|----------|------|
+| GET `/exams/{id}/history` | Xem lịch sử |
 
-    <section class="card">
-        <h2>📝 API Endpoints</h2>
-        <table>
-            <tr>
-                <th>Method</th>
-                <th>Endpoint</th>
-                <th>Mô tả</th>
-            </tr>
-            <tr>
-                <td>POST</td>
-                <td>/exams</td>
-                <td>Tạo đề thi</td>
-            </tr>
-            <tr>
-                <td>GET</td>
-                <td>/exams</td>
-                <td>Lấy danh sách</td>
-            </tr>
-            <tr>
-                <td>PUT</td>
-                <td>/exams/{id}</td>
-                <td>Cập nhật</td>
-            </tr>
-            <tr>
-                <td>DELETE</td>
-                <td>/exams/{id}</td>
-                <td>Xóa</td>
-            </tr>
-        </table>
-    </section>
+---
 
-    <section class="card">
-        <h2>📊 Thống kê</h2>
-        <ul>
-            <li>Tổng số đề thi</li>
-            <li>Số lượng theo level: EASY / MEDIUM / HARD</li>
-            <li>Số lượng theo subject</li>
-            <li>Tỉ lệ đề HARD</li>
-        </ul>
-    </section>
+### 📊 Thống kê
+- 📌 Tổng số đề thi  
+- 📊 Số lượng theo level: `EASY / MEDIUM / HARD`  
+- 📚 Số lượng theo subject  
+- 🔥 Tỉ lệ đề HARD  
 
-    <section class="card">
-        <h2>⚙️ Cài đặt</h2>
-        <pre>
-          git clone &lt;repo-url&gt;
-          cd project
-          dotnet restore
-          dotnet ef database update
-          dotnet run
-        </pre>
-    </section>
-
-    <footer>
-        <p>👨‍💻 Backend Developer - Your Name</p>
-    </footer>
-
-</div>
-
-</body>
-</html>
+| Endpoint | Mô tả |
+|----------|------|
+| GET `/exams/statistics` | Thống kê |
