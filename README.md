@@ -1,71 +1,152 @@
-# 🚀 Hệ Thống Quản Lý Đề Thi Trực Tuyến
+# 📚 Hệ Thống Quản Lý Đề Thi Trực Tuyến
 
-![.NET](https://img.shields.io/badge/.NET-9.0-blue)
-![ASP.NET Core](https://img.shields.io/badge/ASP.NET-Core-green)
-![JWT](https://img.shields.io/badge/Auth-JWT-orange)
-![Swagger](https://img.shields.io/badge/API-Swagger-brightgreen)
-![EF Core](https://img.shields.io/badge/ORM-EntityFramework-purple)
+## 🚀 Giới thiệu
 
----
+Hệ thống **Quản Lý Đề Thi Trực Tuyến** là một ứng dụng backend được xây dựng bằng **ASP.NET Core Web API**, cho phép người dùng tạo, chỉnh sửa, quản lý và thống kê các đề thi theo nhiều tiêu chí khác nhau như môn học, cấp độ và thời gian.
 
-## 📌 Giới thiệu
+Ứng dụng tích hợp:
 
-Hệ thống Quản Lý Đề Thi Trực Tuyến cho phép người dùng:
-
-- Tạo, chỉnh sửa và quản lý đề thi 📚  
-- Thống kê dữ liệu 📊  
-- Phân quyền người dùng 🔐  
-
-👉 Công nghệ sử dụng:
-
-- ASP.NET Core Web API  
-- JWT Authentication  
-- Swagger  
-- Entity Framework Core  
+* 🔐 JWT Authentication (xác thực & phân quyền)
+* 📄 Swagger (test API trực quan)
+* 🗄️ Entity Framework Core (ORM làm việc với database)
 
 ---
 
-## 🔑 Chức năng chính
+## ✨ Tính năng chính
 
-### 👤 Xác thực & Phân quyền
-- ✅ Đăng ký / Đăng nhập  
-- 🔐 Cấp token JWT  
-- 👑 Phân quyền Admin / User  
+### 🔑 Xác thực & phân quyền
 
----
+* Đăng ký, đăng nhập
+* Cấp token JWT
+* Phân quyền: **Admin** / **User**
 
 ### 📝 Quản lý đề thi
-- ➕ Tạo đề thi mới  
-- ✏️ Cập nhật đề thi  
-- ❌ Xóa đề thi  
 
-#### 📡 API Endpoints
+* Tạo đề thi mới
+* Chỉnh sửa đề thi
+* Xóa đề thi
 
-| Method | Endpoint | Mô tả |
-|-------|---------|------|
-| POST | `/exams` | Tạo đề thi |
-| GET | `/exams` | Lấy danh sách (lọc theo subject, level) |
-| PUT | `/exams/{id}` | Cập nhật đề |
-| DELETE | `/exams/{id}` | Xóa đề |
+**API endpoints:**
+
+* `POST /exams` – Tạo đề thi
+* `GET /exams` – Lấy danh sách đề thi (lọc theo `subject`, `level`)
+* `PUT /exams/{id}` – Cập nhật đề thi
+* `DELETE /exams/{id}` – Xóa đề thi
 
 ---
 
-### 🕓 Lịch sử chỉnh sửa
-- 🔄 Tự động lưu khi thay đổi `level` hoặc `examDate`  
-- 📂 Lưu vào bảng `ExamHistory`  
+### 🕓 Lịch sử thay đổi
 
-| Endpoint | Mô tả |
-|----------|------|
-| GET `/exams/{id}/history` | Xem lịch sử |
+* Tự động lưu lịch sử khi thay đổi:
+
+  * `level`
+  * `examDate`
+* Lưu vào bảng `ExamHistory`
+
+**API:**
+
+* `GET /exams/{id}/history` – Xem lịch sử chỉnh sửa
 
 ---
 
 ### 📊 Thống kê
-- 📌 Tổng số đề thi  
-- 📊 Số lượng theo level: `EASY / MEDIUM / HARD`  
-- 📚 Số lượng theo subject  
-- 🔥 Tỉ lệ đề HARD  
 
-| Endpoint | Mô tả |
-|----------|------|
-| GET `/exams/statistics` | Thống kê |
+* Tổng số đề thi đã tạo
+* Số lượng đề theo cấp độ:
+
+  * EASY
+  * MEDIUM
+  * HARD
+* Số lượng theo môn học
+* Tỷ lệ đề HARD
+
+**API:**
+
+* `GET /exams/statistics`
+
+---
+
+## 🛠️ Công nghệ sử dụng
+
+* ASP.NET Core Web API
+* Entity Framework Core
+* SQL Server
+* JWT Authentication
+* Swagger (Swashbuckle)
+
+---
+
+## ⚙️ Cài đặt & chạy dự án
+
+### 1️⃣ Clone source code
+
+```bash
+git clone https://github.com/VuDinhManh22/ExamTest
+cd BETest
+```
+
+### 2️⃣ Cấu hình database
+
+Mở file `appsettings.json` và chỉnh sửa:
+
+```json
+"ConnectionStrings": {
+  "DefaultConnection": "Server=\\SQLEXPRESS;Database=ExamUserDb;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=true"
+}
+```
+
+### 3️⃣ Cài đặt dependencies
+
+```bash
+dotnet restore
+```
+
+### 4️⃣ Migration database
+
+```bash
+dotnet ef migrations add InitialCreate
+dotnet ef database update
+```
+
+### 5️⃣ Chạy ứng dụng
+
+```bash
+dotnet run
+```
+
+---
+
+## 📌 Ghi chú
+
+* Đảm bảo SQL Server đang chạy
+* Cài đặt **.NET SDK** phù hợp (>= .NET 6/7/8)
+* Có thể test API qua Swagger tại:
+
+  ```
+  https://localhost:<port>/swagger
+  ```
+
+---
+
+## 📷 Demo (tuỳ chọn)
+
+> Thêm ảnh demo hoặc GIF ở đây nếu có
+
+---
+
+## 👨‍💻 Tác giả
+
+* Sinh viên thực hiện đồ án cá nhân
+
+---
+
+## ⭐ Gợi ý cải tiến
+
+* Thêm frontend (React / Angular)
+* Thêm phân trang & tìm kiếm nâng cao
+* Export đề thi (PDF/Excel)
+* Role-based UI
+
+---
+
+💡 *Nếu thấy hữu ích, hãy ⭐ repo để ủng hộ nhé!*
