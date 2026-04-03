@@ -128,25 +128,4 @@ dotnet run
 
 ---
 
-## 📷 Demo (tuỳ chọn)
-
-> Thêm ảnh demo hoặc GIF ở đây nếu có
-
----
-
-## 👨‍💻 Tác giả
-
-* Sinh viên thực hiện đồ án cá nhân
-
----
-
-## ⭐ Gợi ý cải tiến
-
-* Thêm frontend (React / Angular)
-* Thêm phân trang & tìm kiếm nâng cao
-* Export đề thi (PDF/Excel)
-* Role-based UI
-
----
-
 💡 *Nếu thấy hữu ích, hãy ⭐ repo để ủng hộ nhé!*
