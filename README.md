@@ -1,129 +1,64 @@
-# 📚 Hệ Thống Quản Lý Đề Thi Trực Tuyến
+# Online Exam Management System (Hệ Thống Quản Lý Đề Thi Trực Tuyến)
 
-## 🚀 Giới thiệu
+Hệ thống Backend được xây dựng bằng **ASP.NET Core Web API** nhằm hỗ trợ quản lý ngân hàng câu hỏi, tạo đề thi, tổ chức thi trực tuyến và chấm điểm tự động cho 3 đối tượng người dùng: Admin, Giáo viên và Thí sinh.
 
-Hệ thống **Quản Lý Đề Thi Trực Tuyến** là một ứng dụng backend được xây dựng bằng **ASP.NET Core Web API**, cho phép người dùng tạo, chỉnh sửa, quản lý và thống kê các đề thi theo nhiều tiêu chí khác nhau như môn học, cấp độ và thời gian.
+## 🚀 Tính Năng Cốt Lõi
+- **Quản lý phân quyền (RBAC):** Admin (Quản trị hệ thống), Giáo viên (Tạo môn học, quản lý ngân hàng câu hỏi, đề thi), Thí sinh (Làm bài thi, xem lịch sử).
+- **Bảo mật:** Xác thực và phân quyền qua JWT (JSON Web Token) & Role-based Authorization.
+- **Quản lý đề thi:** Tạo đề thi ngẫu nhiên từ ngân hàng câu hỏi theo cấu trúc và độ khó thiết lập sẵn.
+- **Thống kê & Báo cáo:** Tự động chấm điểm, lưu lịch sử chỉnh sửa đề thi và xuất báo cáo kết quả thi.
+- **Tài liệu hóa:** Tích hợp Swagger UI giúp kiểm thử API dễ dàng.
 
-Ứng dụng tích hợp:
+## 🛠️ Công Nghệ Sử Dụng
+- **Backend Framework:** ASP.NET Core Web API (.NET 8 / .NET 9)
+- **Database ORM:** Entity Framework Core (Code-First)
+- **Database Engine:** SQL Server
+- **Security:** JWT Authentication, Role-based Authorization, Password Hashing (BCrypt/Identity)
+- **API Documentation:** Swagger / OpenAPI
 
-* 🔐 JWT Authentication (xác thực & phân quyền)
-* 📄 Swagger (test API trực quan)
-* 🗄️ Entity Framework Core (ORM làm việc với database)
+## 📐 Kiến Trúc Cơ Sở Dữ Liệu (Database Schema)
+*Hệ thống bao gồm 10+ bảng nghiệp vụ chính được tối ưu hóa quan hệ:*
+- `Users` & `Roles`: Quản lý thông tin và phân quyền người dùng.
+- `Subjects`: Quản lý các môn học.
+- `Questions` & `Answers`: Ngân hàng câu hỏi trắc nghiệm và đáp án.
+- `Exams` & `ExamQuestions`: Quản lý đề thi và danh sách câu hỏi trong đề.
+- `StudentExams` & `StudentAnswers`: Lưu vết kết quả bài thi và chi tiết câu trả lời của thí sinh.
 
----
+## 💻 Hướng Dẫn Cài Đặt & Chạy Khởi Động (Getting Started)
 
-## ✨ Tính năng chính
+### Yêu cầu hệ thống (Prerequisites)
+- .NET SDK (Phiên bản phù hợp với dự án của bạn)
+- SQL Server LocalDB hoặc SQL Server Management Studio (SSMS)
 
-### 🔑 Xác thực & phân quyền
+### Các bước triển khai dưới Local
 
-* Đăng ký, đăng nhập
-* Cấp token JWT
-* Phân quyền: **Admin** / **User**
+1. **Clone dự án về máy:**
+   ```bash
+   git clone https://github.com
+   cd ExamTest
+   ```
 
-### 📝 Quản lý đề thi
+2. **Cấu hình chuỗi kết nối Database:**
+   Mở file `appsettings.json` và cập nhật lại đoạn `ConnectionStrings` phù hợp với SQL Server của bạn:
+   ```json
+   "ConnectionStrings": {
+     "DefaultConnection": "Server=YOUR_SERVER;Database=ExamManagementDb;Trusted_Connection=True;TrustServerCertificate=True;"
+   }
+   ```
 
-* Tạo đề thi mới
-* Chỉnh sửa đề thi
-* Xóa đề thi
+3. **Chạy Migration để tạo Database và dữ liệu mẫu (Seed Data):**
+   ```bash
+   dotnet ef database update
+   ```
 
-**API endpoints:**
+4. **Khởi chạy ứng dụng:**
+   ```bash
+   dotnet run
+   ```
+   Sau khi ứng dụng chạy thành công, truy cập `https://localhost:[PORT]/swagger` để xem giao diện tài liệu API Swagger.
 
-* `POST /exams` – Tạo đề thi
-* `GET /exams` – Lấy danh sách đề thi (lọc theo `subject`, `level`)
-* `PUT /exams/{id}` – Cập nhật đề thi
-* `DELETE /exams/{id}` – Xóa đề thi
-
----
-
-### 🕓 Lịch sử thay đổi
-
-* Tự động lưu lịch sử khi thay đổi:
-
-  * `level`
-  * `examDate`
-* Lưu vào bảng `ExamHistory`
-
-**API:**
-
-* `GET /exams/{id}/history` – Xem lịch sử chỉnh sửa
-
----
-
-### 📊 Thống kê
-
-* Tổng số đề thi đã tạo
-* Số lượng đề theo cấp độ:
-
-  * EASY
-  * MEDIUM
-  * HARD
-* Số lượng theo môn học
-* Tỷ lệ đề HARD
-
-**API:**
-
-* `GET /exams/statistics`
-
----
-
-## 🛠️ Công nghệ sử dụng
-
-* ASP.NET Core Web API
-* Entity Framework Core
-* SQL Server
-* JWT Authentication
-* Swagger (Swashbuckle)
-
----
-
-## ⚙️ Cài đặt & chạy dự án
-
-### 1️⃣ Clone source code
-
-```bash
-git clone https://github.com/VuDinhManh22/ExamTest
-cd BETest
-```
-
-### 2️⃣ Cấu hình database
-
-Mở file `appsettings.json` và chỉnh sửa:
-
-```json
-"ConnectionStrings": {
-  "DefaultConnection": "Server=\\SQLEXPRESS;Database=ExamUserDb;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=true"
-}
-```
-
-### 3️⃣ Cài đặt dependencies
-
-```bash
-dotnet restore
-```
-
-### 4️⃣ Migration database
-
-```bash
-dotnet ef migrations add InitialCreate
-dotnet ef database update
-```
-
-### 5️⃣ Chạy ứng dụng
-
-```bash
-dotnet run
-```
-
----
-
-## 📌 Ghi chú
-
-* Đảm bảo SQL Server đang chạy
-* Cài đặt **.NET SDK** phù hợp (>= .NET 6/7/8)
-* Có thể test API qua Swagger tại:
-
-  ```
-  https://localhost:<port>/swagger
-  ```
-
----
+## 📌 Các Endpoint API Chính (Main API Endpoints)
+- `POST /api/auth/login`: Đăng nhập hệ thống và nhận Access Token.
+- `GET /api/questions`: Lấy danh sách ngân hàng câu hỏi (Yêu cầu quyền Giáo viên/Admin).
+- `POST /api/exams/generate`: Tự động tạo đề thi từ ngân hàng câu hỏi.
+- `POST /api/student-exams/submit`: Thí sinh nộp bài và nhận kết quả chấm điểm tự động.
